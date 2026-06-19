@@ -24,7 +24,7 @@ RUN dnf -y update && dnf install -y \
 
 WORKDIR /resume
 
-COPY resume.tex resume.cls mypic.png ./
+COPY CV/resume.tex CV/resume.cls CV/mypic.png ./
 
 RUN pdflatex -interaction=nonstopmode resume.tex || true && \
     pdflatex -interaction=nonstopmode resume.tex || true && \
