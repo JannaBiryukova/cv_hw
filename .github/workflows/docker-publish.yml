@@ -1,0 +1,25 @@
+name: Build Resume
+
+on:
+  push:
+    branches: [ master, main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Build Docker image and compile PDF
+      run: |
+        docker build -t resume .
+        docker run --rm -v ${{ github.workspace }}:/output resume cp resume.pdf /output/
+
+    - name: Upload PDF artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: resume-pdf
+        path: resume.pdf
